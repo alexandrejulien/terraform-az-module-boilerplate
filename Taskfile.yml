@@ -1,0 +1,27 @@
+# Terraform az boilerplate
+
+version: '3'
+
+includes:
+  terraform: .tasks/TerraformTasks.yml
+  docs: .tasks/TerraformDocsTasks.yml
+  checkov: .tasks/CheckovTasks.yml
+
+tasks:
+  default:
+     desc: List all tasks
+     cmds:
+       - task --list-all    
+  tests:
+    desc: Test module
+    dir: ./tests/
+    cmds:
+      - terraform init
+      - terraform validate
+      - terraform plan
+      - terraform apply --auto-approve
+      - terraform destroy --auto-approve
+  required-tools:
+    desc: Required tools
+    cmds:
+      - echo '🚀 Please install terraform, terraform-docs, tflint binaries before use with Chocolatey or Winget'

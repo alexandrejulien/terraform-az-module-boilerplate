@@ -1,0 +1,60 @@
+env:
+  BACKEND_CONFIG: "envs\\backend.nonprod"
+  VARFILE: "envs\\local"
+  OUTPUT_PLAN: "plan.tfplan"
+  OUTPUT_GRAPH: "plan.tfgraph"
+
+
+# Terraform tasks
+version: '3'
+tasks:
+  default:
+    desc: 🚀 Terraform init, and plan
+    deps:
+      - init
+      - validate
+      - lint
+      - plan
+  init:
+    desc: Terraform init
+    cmds:
+      - terraform init -backend-config="{{.BACKEND_CONFIG}}.tfvars"
+  upgrade:
+    desc: Terraform init (upgrade)
+    cmds:
+      - terraform init -upgrade -backend-config="{{.BACKEND_CONFIG}}.tfvars"
+  reconfigure:
+    desc: Terraform init (reconfigure)
+    cmds:
+      - terraform init -reconfigure -backend-config="{{.BACKEND_CONFIG}}.tfvars"
+  validate:
+    desc: ✅ Terraform validate
+    cmds:
+      - terraform validate
+  plan:
+    desc: 🎯 Terraform plan
+    cmds:
+      - terraform plan -var-file="{{.VARFILE}}.tfvars" -out={{.OUTPUT_PLAN}}
+      - terraform show -json {{.OUTPUT_PLAN}} > {{.OUTPUT_GRAPH}}
+  apply:
+    desc: 🚀 Terraform apply
+    cmds:
+      - terraform apply -var-file="{{.VARFILE}}.tfvars"
+  apply:approve:
+    desc: 🚀 Terraform apply (auto-approve) from plan
+    cmds:
+      - terraform apply -var-file="{{.VARFILE}}.tfvars" -auto-approve
+  destroy:
+    desc: ❌ Terraform destroy
+    cmds:
+      - terraform destroy -var-file="{{.VARFILE}}.tfvars"
+  unlock:
+    desc: 🔒 Terraform force-unlock
+    vars:
+      ID: '{{.ID}}'
+    cmds:
+      - terraform force-unlock -force {{.ID}}
+  lint: 
+    desc: Lint terraform files
+    cmds:
+      - tflint

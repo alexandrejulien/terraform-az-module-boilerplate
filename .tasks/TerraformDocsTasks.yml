@@ -1,0 +1,6 @@
+version: 3
+tasks:
+  generate:
+    desc: 📄 Generate terraform docs
+    cmds:
+      - terraform-docs markdown table . > README.md
