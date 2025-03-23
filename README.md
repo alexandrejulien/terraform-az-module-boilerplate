@@ -14,18 +14,6 @@ Terraform az-module boilerplate is designed as a starting point for building and
 
 ---
 
-## Templating Documentation
-
-The module uses a Markdown template (e.g., `.docs/header.tpl.md`) to render documentation dynamically. A sample header template might look like this:
-
-````markdown
-# ${title}
-
-${description}
-
----
-```
-
 ## Requirements
 
 | Name | Version |
