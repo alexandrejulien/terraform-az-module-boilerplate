@@ -1,3 +1,3 @@
 ## Contributors 
 
-${contributors}
+- Alexandre Julien (https://github.com/alexandrejulien)
