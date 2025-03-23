@@ -11,7 +11,7 @@ tasks:
   default:
      desc: List all tasks
      cmds:
-       - task --list-all
+       - task --list-all    
   tests:
     desc: Test module
     dir: ./tests/
